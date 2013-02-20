@@ -44,22 +44,22 @@
  */
 
 /* message attributes */
-#define ATTR_PRIVATE                    0b0000000000000001
-#define ATTR_CRASH                      0b0000000000000010
-#define ATTR_RECD                       0b0000000000000100
-#define ATTR_SENT                       0b0000000000001000
-#define ATTR_FILE_ATTACHED              0b0000000000010000
-#define ATTR_IN_TRANSIT                 0b0000000000100000
-#define ATTR_ORPHAN                     0b0000000001000000
-#define ATTR_KILL_SENT                  0b0000000010000000
-#define ATTR_LOCAL                      0b0000000100000000
-#define ATTR_HOLD_FOR_PICKUP            0b0000001000000000
-#define ATTR_UNUSED                     0b0000010000000000
-#define ATTR_FILE_REQUEST               0b0000100000000000
-#define ATTR_RETURN_RECEIPT_REQUEST     0b0001000000000000
-#define ATTR_IS_RETURN_RECEIPT          0b0010000000000000
-#define ATTR_AUDIT_REQUEST              0b0100000000000000
-#define ATTR_FILE_UPDATE_REQ            0b1000000000000000
+#define ATTR_PRIVATE                    1<<00 //0b0000000000000001
+#define ATTR_CRASH                      1<<01 //0b0000000000000010
+#define ATTR_RECD                       1<<02 //0b0000000000000100
+#define ATTR_SENT                       1<<03 //0b0000000000001000
+#define ATTR_FILE_ATTACHED              1<<04 //0b0000000000010000
+#define ATTR_IN_TRANSIT                 1<<05 //0b0000000000100000
+#define ATTR_ORPHAN                     1<<06 //0b0000000001000000
+#define ATTR_KILL_SENT                  1<<07 //0b0000000010000000
+#define ATTR_LOCAL                      1<<08 //0b0000000100000000
+#define ATTR_HOLD_FOR_PICKUP            1<<09 //0b0000001000000000
+#define ATTR_UNUSED                     1<<10 //0b0000010000000000
+#define ATTR_FILE_REQUEST               1<<11 //0b0000100000000000
+#define ATTR_RETURN_RECEIPT_REQUEST     1<<12 //0b0001000000000000
+#define ATTR_IS_RETURN_RECEIPT          1<<13 //0b0010000000000000
+#define ATTR_AUDIT_REQUEST              1<<14 //0b0100000000000000
+#define ATTR_FILE_UPDATE_REQ            1<<15 //0b1000000000000000
 
 
 
