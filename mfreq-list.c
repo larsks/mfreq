@@ -6,6 +6,7 @@
  *
  * ************************************************************************ */
 
+#include "config.h"
 
 /*
  *  local constants
@@ -16,7 +17,7 @@
 
 /* defaults for this program */
 #define NAME            "mfreq-list"
-#define DEFAULT_CFG     "/etc/fido/mfreq/list.cfg"
+#define DEFAULT_CFG     SYSCONFDIR"/list.cfg"
 
 
 

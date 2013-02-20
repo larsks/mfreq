@@ -3,6 +3,7 @@
 # (c) 1994-2012 by Markus Reschke
 #
 
+sysconfdir=/etc/fido/mfreq
 
 # global variables
 DIST = $(notdir ${CURDIR})
@@ -11,7 +12,7 @@ VERSION = $(subst ${NAME}-,,${DIST})
 
 # compiler flags
 CC = gcc
-CFLAGS = -Wall -g -I/usr/include -I.
+CFLAGS = -Wall -g -I/usr/include -I. -DSYSCONFDIR="\"$(sysconfdir)\""
 LDFLAGS =
 
 # libraries to link
@@ -30,7 +31,7 @@ OBJ_LIST = mfreq-list.o list.o index.o ${OBJ_COMMON}
 OBJ_SRIF = mfreq-srif.o index.o req.o fts.o ${OBJ_COMMON}
 
 # header files
-HEADERS = common.h variables.h functions.h
+HEADERS = config.h common.h variables.h functions.h
 
 # programs
 PROGS = mfreq-index mfreq-list mfreq-srif

@@ -6,6 +6,8 @@
  *
  * ************************************************************************ */
 
+#include "config.h"
+
 
 /*
  *  local constants
@@ -16,8 +18,8 @@
 
 /* defaults for this program */
 #define NAME            "mfreq-srif"
-#define DEFAULT_CFG     "/etc/fido/mfreq/srif.cfg"
-#define DEFAULT_TMP     "/var/tmp"
+#define DEFAULT_CFG     SYSCONFDIR"/srif.cfg"
+#define DEFAULT_TMP     TMPDIR
 
 
 /*
