@@ -550,7 +550,7 @@ _Bool ProcessPath(char *Path, char *PW, int Depth, _Bool AutoMagic)
                 /* create aliased path */
                 /* format: %<offset>%/ */
                 snprintf(TempBuffer, DEFAULT_BUFFER_SIZE - 1,
-                  "%%%ld%%/", AliasOffset);
+                  "%%%lld%%/", (long long)AliasOffset);
               }
               else                      /* path alias disabled */
               {
@@ -899,7 +899,7 @@ _Bool Cmd_Index(Token_Type *TokenList, unsigned int Line)
     {
       /* build data buffer */
       snprintf(OutBuffer, DEFAULT_BUFFER_SIZE - 1,
-        "%c %ld %u %u\n", IndexLookup->Letter, IndexLookup->Offset,
+        "%c %lld %u %u\n", IndexLookup->Letter, (long long)IndexLookup->Offset,
         IndexLookup->Start, IndexLookup->Stop);
       
       IndexLookup = IndexLookup->Next;     /* go to next element */

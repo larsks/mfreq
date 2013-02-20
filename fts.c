@@ -843,8 +843,9 @@ _Bool WriteMailContent(FILE *File)
               snprintf(OutBuffer, DEFAULT_BUFFER_SIZE - 1,
                 "  - %s (%sytes)\r\n", Help, TempBuffer);
             else
+              /* lks: http://stackoverflow.com/questions/586928/how-should-i-print-types-like-off-t-and-size-t */
               snprintf(OutBuffer, DEFAULT_BUFFER_SIZE - 1,
-                "  - %s (%ld Bytes)\r\n", Help, Response->Size);
+                "  - %s (%lld Bytes)\r\n", Help, (long long)Response->Size);
 
             fputs(OutBuffer, File);
           }
