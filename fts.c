@@ -25,8 +25,18 @@
 #include "functions.h"        /* external funtions */
 
 /* extra */
+#ifdef HAVE_ENDIAN_H
 #include <endian.h>
+#else
+#define bswap16(x) \
+     ((unsigned short int) ((((x) >> 8) & 0xff) | (((x) & 0xff) << 8)))
 
+#if BYTE_ORDER == LITTLE_ENDIAN
+#define htole16(x) (x)
+#else
+#define htole16(x) bswap16(x)
+#endif // BYTE_ORDER == LITTLE_ENDIAN
+#endif // HAVE_ENDIAN_H
 
 
 /*
