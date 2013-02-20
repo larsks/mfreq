@@ -3,6 +3,8 @@
 # (c) 1994-2012 by Markus Reschke
 #
 
+prefix=/usr/local
+bindir=$(prefix)/bin
 sysconfdir=/etc/fido/mfreq
 
 # global variables
@@ -17,9 +19,6 @@ LDFLAGS =
 
 # libraries to link
 LIBS =
-
-# where to install binaries
-INSTALLDIR = /usr/local
 
 # objects
 OBJ_COMMON = log.o misc.o tokenizer.o
@@ -82,9 +81,10 @@ dist: ${PROGS}
 
 install: ${PROGS}
 	strip ${PROGS}
-	cp -f mfreq-index ${INSTALLDIR}/bin
-	cp -f mfreq-list ${INSTALLDIR}/bin
-	cp -f mfreq-srif ${INSTALLDIR}/bin
+	install -m 755 -d $(DESTDIR)$(bindir)
+	cp -f mfreq-index $(DESTDIR)$(bindir)
+	cp -f mfreq-list $(DESTDIR)$(bindir)
+	cp -f mfreq-srif $(DESTDIR)$(bindir)
 
 
 #
