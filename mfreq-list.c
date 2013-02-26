@@ -35,7 +35,7 @@
 #include <errno.h>
 #include <dirent.h>
 
-
+_Bool ReadConfig(char *cfgfilepath);
 
 /* ************************************************************************
  *   data sorting
@@ -2768,6 +2768,44 @@ _Bool Cmd_LogFile(Token_Type *TokenList, unsigned int Line)
 }
 
 
+_Bool Cmd_Include(Token_Type *TokenList, unsigned int Line)
+{
+  _Bool                  Flag = False;       /* return value */
+  _Bool                  Run = True;         /* control flag */
+  unsigned short     Keyword = 0;        /* keyword ID */
+  static char            *Keywords[2] =
+    {"Include", NULL};
+
+  /* sanity check */
+  if (TokenList == NULL) return Flag;
+
+  while (Run && TokenList && TokenList->String)
+  {
+    if (Keyword > 0) {
+      switch (Keyword)
+      {
+        case 1:       /* include file */
+          Flag = ReadConfig(TokenList->String);
+          break;
+      }
+
+      Keyword = 0;
+    } else {
+      Keyword = GetKeyword(Keywords, TokenList->String);
+
+      switch (Keyword)        /* keywords without data */
+      {
+        case 0:               /* unknown keyword */
+          Run = False;
+          break;
+      }
+    }
+
+    TokenList = TokenList->Next;     /* goto to next token */
+  }
+
+    return Flag;
+}
 
 /* ************************************************************************
  *   configuration
@@ -2786,9 +2824,9 @@ _Bool ParseConfig(Token_Type *TokenList, unsigned int Line)
 {
   _Bool                  Flag = False;        /* return value */
   unsigned short         Keyword = 0;        /* keyword ID */
-  static char            *Keywords[9] =
+  static char            *Keywords[10] =
     {"LogFile", "Exclude", "InfoMode", "Define", "FileList",
-     "AddText", "FileArea", "Reset", NULL};
+     "AddText", "FileArea", "Reset", "Include", NULL};
 
   /* sanity check */
   if (TokenList == NULL) return Flag;
@@ -2835,6 +2873,9 @@ _Bool ParseConfig(Token_Type *TokenList, unsigned int Line)
 
       case 8:       /* reset */
         Flag = Cmd_Reset(TokenList, Line);
+
+      case 9:       /* reset */
+        Flag = Cmd_Include(TokenList, Line);
     }
   }
 
@@ -2851,7 +2892,7 @@ _Bool ParseConfig(Token_Type *TokenList, unsigned int Line)
  *  - 0 on error
  */
 
-_Bool ReadConfig()
+_Bool ReadConfig(char *cfgfilepath)
 {
   _Bool                  Flag = False;        /* return value */
   _Bool                  Run = True;          /* loop control */
@@ -2861,7 +2902,7 @@ _Bool ReadConfig()
   Token_Type             *TokenList;
   unsigned int           Line = 0;            /* line number */
 
-  File = fopen(Env->CfgFilepath, "r");        /* read mode */
+  File = fopen(cfgfilepath, "r");        /* read mode */
   if (File)
   {
     while (Run)
@@ -3265,7 +3306,7 @@ int main(int argc, char *argv[])
 
   if (Flag && Env->Run)
   {
-    Flag = ReadConfig();
+    Flag = ReadConfig(Env->CfgFilepath);
   }
 
 
